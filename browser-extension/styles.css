@@ -1,0 +1,315 @@
+/* AI Test Case Generator Styles */
+
+/* Button Styles */
+.ai-tc-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(45deg, #0078d4, #106ebe);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ai-tc-button:hover {
+    background: linear-gradient(45deg, #106ebe, #005a9e);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.ai-tc-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ai-tc-button:disabled,
+.ai-tc-button.loading {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.ai-tc-button .ai-tc-icon {
+    font-size: 16px;
+    animation: none;
+}
+
+.ai-tc-button.loading .ai-tc-spinner {
+    animation: spin 1s linear infinite;
+}
+
+/* Delete Button Specific Styles */
+.ai-tc-delete-button {
+    background: linear-gradient(45deg, #d13438, #b52328);
+}
+
+.ai-tc-delete-button:hover:not(:disabled) {
+    background: linear-gradient(45deg, #b52328, #a01e23);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Button Container */
+.ai-tc-button-container,
+.ai-tc-buttons-container {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 8px;
+}
+
+.ai-tc-buttons-container {
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Notification Styles */
+.ai-tc-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    padding: 12px 16px;
+    border-radius: 4px;
+    color: white;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: slideInRight 0.3s ease;
+}
+
+.ai-tc-notification-success {
+    background: linear-gradient(45deg, #107c10, #0e6e0e);
+}
+
+.ai-tc-notification-error {
+    background: linear-gradient(45deg, #d13438, #b52328);
+}
+
+.ai-tc-notification-info {
+    background: linear-gradient(45deg, #0078d4, #106ebe);
+}
+
+.ai-tc-notification-text {
+    flex: 1;
+}
+
+.ai-tc-notification-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+}
+
+.ai-tc-notification-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Modal Styles */
+.ai-tc-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.ai-tc-modal-content {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 90%;
+    max-height: 80%;
+    overflow: hidden;
+    animation: slideInUp 0.3s ease;
+}
+
+.ai-tc-modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #e1e1e1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8f9fa;
+}
+
+.ai-tc-modal-header h3 {
+    margin: 0;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #323130;
+}
+
+.ai-tc-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #605e5c;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.ai-tc-modal-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #323130;
+}
+
+.ai-tc-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 400px;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+}
+
+.ai-tc-modal-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #e1e1e1;
+    background: #f8f9fa;
+    text-align: right;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.ai-tc-modal-footer button {
+    padding: 8px 16px;
+    background: #0078d4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.ai-tc-modal-footer button:hover {
+    background: #106ebe;
+}
+
+.ai-tc-modal-footer button:disabled {
+    background: #a19f9d;
+    cursor: not-allowed;
+}
+
+.ai-tc-modal-footer .ai-tc-delete-tests-btn {
+    background: #d13438;
+}
+
+.ai-tc-modal-footer .ai-tc-delete-tests-btn:hover:not(:disabled) {
+    background: #b52328;
+}
+
+.ai-tc-modal-footer .ai-tc-modal-close-btn {
+    background: #605e5c;
+}
+
+.ai-tc-modal-footer .ai-tc-modal-close-btn:hover {
+    background: #484644;
+}
+
+.ai-tc-test-cases-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0 0;
+}
+
+.ai-tc-test-cases-list li {
+    padding: 12px;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    background: #f8f9fa;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.ai-tc-test-cases-list li:last-child {
+    margin-bottom: 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .ai-tc-notification {
+        left: 10px;
+        right: 10px;
+        width: auto;
+        min-width: auto;
+    }
+    
+    .ai-tc-modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+    
+    .ai-tc-button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
