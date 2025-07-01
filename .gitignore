@@ -1,6 +1,9 @@
 # Configuration files with sensitive data
 config.json
 
+# Environment variables (if using .env file)
+.env
+
 # Python
 __pycache__/
 *.py[cod]

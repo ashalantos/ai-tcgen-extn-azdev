@@ -9,18 +9,44 @@ import os
 
 app = Flask(__name__)
 
-# Load configuration from JSON file
+# Load configuration from JSON file or environment variables
 def load_config():
-    config_path = os.path.join(os.path.dirname(__file__), 'config.json')
-    try:
-        with open(config_path, 'r') as config_file:
-            return json.load(config_file)
-    except FileNotFoundError:
-        print("Error: config.json file not found. Please create it with the required configuration.")
-        raise
-    except json.JSONDecodeError:
-        print("Error: Invalid JSON in config.json file.")
-        raise
+    # Check if we're in a cloud deployment (environment variables available)
+    if os.environ.get('AZURE_DEVOPS_PAT'):
+        print("Loading configuration from environment variables (cloud deployment)")
+        return {
+            "azure_devops": {
+                "organization": os.environ.get('AZURE_DEVOPS_ORGANIZATION', 'default-org'),
+                "project": os.environ.get('AZURE_DEVOPS_PROJECT', 'Default Project'),
+                "personal_access_token": os.environ.get('AZURE_DEVOPS_PAT')
+            },
+            "openai": {
+                "api_key": os.environ.get('OPENAI_API_KEY'),
+                "model": os.environ.get('OPENAI_MODEL', 'gpt-3.5-turbo'),
+                "max_tokens": int(os.environ.get('OPENAI_MAX_TOKENS', '1024')),
+                "temperature": float(os.environ.get('OPENAI_TEMPERATURE', '0.7'))
+            },
+            "test_case": {
+                "max_title_length": int(os.environ.get('TEST_CASE_MAX_TITLE_LENGTH', '255'))
+            },
+            "server": {
+                "port": int(os.environ.get('PORT', '5000')),
+                "debug": os.environ.get('DEBUG', 'false').lower() == 'true'
+            }
+        }
+    else:
+        # Local development - use config.json
+        print("Loading configuration from config.json (local development)")
+        config_path = os.path.join(os.path.dirname(__file__), 'config.json')
+        try:
+            with open(config_path, 'r') as config_file:
+                return json.load(config_file)
+        except FileNotFoundError:
+            print("Error: config.json file not found. Please create it with the required configuration.")
+            raise
+        except json.JSONDecodeError:
+            print("Error: Invalid JSON in config.json file.")
+            raise
 
 # Load configuration
 config = load_config()
@@ -465,4 +491,7 @@ def health_check():
     })
 
 if __name__ == '__main__':
-    app.run(port=server_port, debug=server_debug)
+    # Use PORT environment variable for cloud deployments (Heroku, etc.)
+    port = int(os.environ.get('PORT', server_port))
+    host = '0.0.0.0'  # Allow external connections
+    app.run(host=host, port=port, debug=server_debug)
